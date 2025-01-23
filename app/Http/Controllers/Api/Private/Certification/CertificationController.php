@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Api\Private\Certification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Certification\CreateCertificationRequest;
 use App\Http\Requests\Certification\UpdateCertificationRequest;
-use App\Http\Resources\Blog\CertificationResource;
+use App\Http\Resources\Certification\CertificationResource;
 use App\Http\Resources\Certification\AllCertificationCollection;
 use App\Utils\PaginateCollection;
 use App\Services\Certification\CertificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 
 class CertificationController extends Controller
 {
@@ -34,10 +33,10 @@ class CertificationController extends Controller
      */
     public function index(Request $request)
     {
-        $blogs = $this->certificationService->allCertifications();
+        $certifications = $this->certificationService->allCertifications();
 
         return response()->json(
-            new AllCertificationCollection(PaginateCollection::paginate($blogs, $request->pageSize?$request->pageSize:10))
+            new AllCertificationCollection(PaginateCollection::paginate($certifications, $request->pageSize?$request->pageSize:10))
         , 200);
 
     }
@@ -52,7 +51,7 @@ class CertificationController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->certificationService->createBlog($createCertificationRequest->validated());
+            $this->certificationService->createCertification($createCertificationRequest->validated());
 
             DB::commit();
 
@@ -74,10 +73,10 @@ class CertificationController extends Controller
 
     public function edit(Request $request)
     {
-        $blog  =  $this->certificationService->editBlog($request->blogId);
+        $certification  =  $this->certificationService->editCertification($request->certificationId);
 
         return response()->json(
-            new CertificationResource($blog)//new UserResource($user)
+            new CertificationResource($certification)//new UserResource($user)
         ,200);
 
     }
@@ -90,7 +89,7 @@ class CertificationController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->certificationService->updateBlog($updateCertificationRequest->validated());
+            $this->certificationService->updateCertification($updateCertificationRequest->validated());
             DB::commit();
             return response()->json([
                  'message' => __('messages.success.updated')
@@ -111,7 +110,7 @@ class CertificationController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->certificationService->deleteBlog($request->certifcationId);
+            $this->certificationService->deleteCertification($request->certifcationId);
             DB::commit();
             return response()->json([
                 'message' => __('messages.success.deleted')
@@ -126,7 +125,7 @@ class CertificationController extends Controller
 
     // public function changeStatus(Request $request)
     // {
-    //     $this->certificationService->changeStatus($request->blogId, $request->isPublished);
+    //     $this->certificationService->changeStatus($request->certificationId, $request->isPublished);
     //     return response()->json([
     //         'message' => __('messages.success.updated')
     //     ], 200);

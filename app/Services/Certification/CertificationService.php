@@ -26,7 +26,7 @@ class CertificationService{
         $certifications = QueryBuilder::for(Certification::class)
             ->withTranslation() // Fetch translations if applicable
             ->allowedFilters([
-               /* AllowedFilter::custom('search', new BlogSearchTranslatableFilter()), // Add a custom search filter*/
+               /* AllowedFilter::custom('search', new CertificationSearchTranslatableFilter()), // Add a custom search filter*/
             ])
             ->get();
 
@@ -34,7 +34,7 @@ class CertificationService{
 
     }
 
-    public function createBlog(array $certificationData): Certification
+    public function createCertification(array $certificationData): Certification
     {
 
         $path = null;
@@ -65,15 +65,15 @@ class CertificationService{
 
     }
 
-    public function editBlog(int $blogId)
+    public function editCertification(int $certificationId)
     {
-        return Certification::with('translations')->find($blogId);
+        return Certification::with('translations')->find($certificationId);
     }
 
-    public function updateBlog(array $certificationData): Certification
+    public function updateCertification(array $certificationData): Certification
     {
 
-        $certification = Certification::find($certificationData['blogId']);
+        $certification = Certification::find($certificationData['certificationId']);
 
         $certification->is_published = $certificationData['isPublished'];
 
@@ -110,10 +110,10 @@ class CertificationService{
     }
 
 
-    public function deleteBlog(int $blogId)
+    public function deleteCertification(int $certificationId)
     {
 
-        $certification  = Certification::find($blogId);
+        $certification  = Certification::find($certificationId);
 
         if($certification->image){
             Storage::disk('public')->delete($certification->image);
@@ -124,9 +124,9 @@ class CertificationService{
     }
 
 
-    public function changeStatus(int $blogId, bool $isPublished)
+    public function changeStatus(int $certificationId, bool $isPublished)
     {
-        $certification = Certification::find($blogId);
+        $certification = Certification::find($certificationId);
         $certification->is_published = $isPublished;
         $certification->save();
     }

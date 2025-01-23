@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Certification;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
