@@ -44,19 +44,11 @@ class CompanyTeamService{
 
         $companyTeam = new CompanyTeam();
 
-        $companyTeam->is_published = $companyTeamData['isPublished'];
+        $companyTeam->isActive = $companyTeamData['isActive'];
         $companyTeam->image = $path;
-
-
-        if (!empty($companyTeamData['titleAr'])) {
-            $companyTeam->translateOrNew('ar')->title = $companyTeamData['titleAr'];
-            $companyTeam->translateOrNew('ar')->description = $companyTeamData['descriptionAr'];
-        }
-
-        if (!empty($companyTeamData['titleEn'])) {
-            $companyTeam->translateOrNew('en')->title = $companyTeamData['titleEn'];
-            $companyTeam->translateOrNew('en')->description = $companyTeamData['descriptionEn'];
-        }
+        $companyTeam->name = $companyTeamData['name'];
+        $companyTeam->social_links = $companyTeamData['socialLinks'];
+        $companyTeam->job_title = $companyTeamData['jobTitle'];
 
         $companyTeam->save();
 
@@ -66,7 +58,7 @@ class CompanyTeamService{
 
     public function editCompanyTeam(int $companyTeamId)
     {
-        return CompanyTeam::with('translations')->find($companyTeamId);
+        return CompanyTeam::find($companyTeamId);
     }
 
     public function updateCompanyTeam(array $companyTeamData): CompanyTeam
@@ -74,7 +66,11 @@ class CompanyTeamService{
 
         $companyTeam = CompanyTeam::find($companyTeamData['companyTeamId']);
 
-        $companyTeam->is_published = $companyTeamData['isPublished'];
+        $companyTeam->is_active = $companyTeamData['isActive'];
+        $companyTeam->name = $companyTeamData['name'];
+        $companyTeam->social_links = $companyTeamData['socialLinks'];
+        $companyTeam->job_title = $companyTeamData['jobTitle'];
+
 
         $path = null;
 
@@ -90,16 +86,6 @@ class CompanyTeamService{
             $companyTeam->image = $path;
         }
 
-        if (!empty($companyTeamData['titleAr'])) {
-            $companyTeam->translateOrNew('ar')->title = $companyTeamData['titleAr'];
-            $companyTeam->translateOrNew('ar')->description = $companyTeamData['descriptionAr'];
-
-        }
-
-        if (!empty($companyTeamData['titleEn'])) {
-            $companyTeam->translateOrNew('en')->title = $companyTeamData['titleEn'];
-            $companyTeam->translateOrNew('en')->description = $companyTeamData['descriptionEn'];
-        }
 
         $companyTeam->save();
 
