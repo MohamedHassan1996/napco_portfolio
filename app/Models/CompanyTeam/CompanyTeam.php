@@ -10,7 +10,7 @@ class CompanyTeam extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'job_title', 'social_links', 'image'];
+    protected $fillable = ['name', 'job_title', 'social_links', 'image', 'is_active'];
 
     protected $casts = [
         'social_links' => 'array',
