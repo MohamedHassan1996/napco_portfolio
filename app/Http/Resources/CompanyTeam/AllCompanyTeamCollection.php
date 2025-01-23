@@ -36,7 +36,7 @@ class AllCompanyTeamCollection extends ResourceCollection
 
         return [
             "result" => [
-                'certifications' => AllCertificationResource::collection(($this->collection)->values()->all()),
+                'companyTeams' => AllCompanyTeamResource::collection(($this->collection)->values()->all()),
             ],
             'pagination' => $this->pagination
         ];
