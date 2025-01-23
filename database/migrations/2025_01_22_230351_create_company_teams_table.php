@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('image')->nullable();
             $table->json('social_links')->nullable();
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
     }
