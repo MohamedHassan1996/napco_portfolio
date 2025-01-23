@@ -24,7 +24,6 @@ class CompanyTeamService{
         $locale = app()->getLocale(); // Get the current locale
 
         $companyTeams = QueryBuilder::for(CompanyTeam::class)
-            ->withTranslation() // Fetch translations if applicable
             ->allowedFilters([
                /* AllowedFilter::custom('search', new companyTeamSearchTranslatableFilter()), // Add a custom search filter*/
             ])
