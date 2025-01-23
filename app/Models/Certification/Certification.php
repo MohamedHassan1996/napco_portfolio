@@ -15,5 +15,9 @@ class Certification extends Model implements TranslatableContract
     protected $translatedAttributes = ['title', 'description'];
     protected $fillable = ['is_published', 'image'];
 
+    public function translations(): HasMany
+    {
+        return $this->hasMany(CertificationTranslation:class);
+    }
 
 }
