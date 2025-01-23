@@ -20,7 +20,7 @@ class AllCompanyTeamResource extends JsonResource
         return [
             'companyTeamId' => $this->id,
             'name' => $this->name,
-            'jobTitle' => $this->jobTitle,
+            'jobTitle' => $this->job_title,
             'image' => $this->image?Storage::disk('public')->url($this->image):"",
             'isActive' => $this->is_active
         ];
