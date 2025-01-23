@@ -44,7 +44,7 @@ class CompanyTeamService{
 
         $companyTeam = new CompanyTeam();
 
-        $companyTeam->isActive = $companyTeamData['isActive'];
+        $companyTeam->is_active = $companyTeamData['isActive'];
         $companyTeam->image = $path;
         $companyTeam->name = $companyTeamData['name'];
         $companyTeam->social_links = $companyTeamData['socialLinks'];
