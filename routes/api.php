@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\Private\Blog\BlogCategoryController;
 use App\Http\Controllers\Api\Private\Blog\BlogController;
 use App\Http\Controllers\Api\Private\Career\CandidateController;
 use App\Http\Controllers\Api\Private\Career\CareerController;
+use App\Http\Controllers\Api\Private\Certification\CertificationController;
+use App\Http\Controllers\Api\Private\CompanyTeam\CompanyTeamController;
 use App\Http\Controllers\Api\Private\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\Private\ContactUs\ContactUsMessageController;
 use App\Http\Controllers\Api\Private\ContactUs\WebsiteContactUsController;
@@ -22,6 +24,7 @@ use App\Http\Controllers\Api\Private\Product\ProductImageController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
+use App\Models\Certification\Certification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -187,6 +190,24 @@ Route::prefix('v1/subscribers')->group(function(){
 Route::prefix('v1/contact-us')->group(function(){
     Route::post('create', [WebsiteContactUsController::class, 'create']);
 });
+
+Route::prefix('v1/{lang}/admin/company-teams')->where(['lang' => 'en|ar'])->group(function(){
+    Route::get('', [CompanyTeamController::class, 'index']);
+    Route::post('create', [CompanyTeamController::class, 'create']);
+    Route::get('edit', [CompanyTeamController::class, 'edit']);
+    Route::put('update', [CompanyTeamController::class, 'update']);
+    Route::delete('delete', [CompanyTeamController::class, 'delete']);
+});
+
+Route::prefix('v1/{lang}/admin/certificates')->where(['lang' => 'en|ar'])->group(function(){
+    Route::get('', [CertificationController::class, 'index']);
+    Route::post('create', [CertificationController::class, 'create']);
+    Route::get('edit', [CertificationController::class, 'edit']);
+    Route::put('update', [CertificationController::class, 'update']);
+    Route::delete('delete', [CertificationController::class, 'delete']);
+});
+
+
 
 
 Route::prefix('v1/{lang}/admin/selects')->where(['lang' => 'en|ar'])->group(function(){
