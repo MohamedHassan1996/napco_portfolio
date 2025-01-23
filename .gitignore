@@ -1,12 +1,12 @@
 /.phpunit.cache
 /node_modules
-/public/index.php
-/public/.htaccess
+#/public/index.php
+#/public/.htaccess
 /public/hot
-/public/storage
+#/public/storage
 /storage/*.key
 /vendor
-/.env
+#/.env
 .env.backup
 .env.production
 Homestead.json
