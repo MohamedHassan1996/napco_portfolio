@@ -199,7 +199,7 @@ Route::prefix('v1/{lang}/admin/company-teams')->where(['lang' => 'en|ar'])->grou
     Route::delete('delete', [CompanyTeamController::class, 'delete']);
 });
 
-Route::prefix('v1/{lang}/admin/certificates')->where(['lang' => 'en|ar'])->group(function(){
+Route::prefix('v1/{lang}/admin/certifications')->where(['lang' => 'en|ar'])->group(function(){
     Route::get('', [CertificationController::class, 'index']);
     Route::post('create', [CertificationController::class, 'create']);
     Route::get('edit', [CertificationController::class, 'edit']);
