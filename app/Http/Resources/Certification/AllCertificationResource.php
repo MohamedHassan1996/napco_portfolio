@@ -18,7 +18,7 @@ class AllCertificationResource extends JsonResource
 
 
         return [
-            'blogId' => $this->id,
+            'certificationId' => $this->id,
             'title' => $this->title,
             'image' => $this->image?Storage::disk('public')->url($this->image):"",
             'isPublished' => $this->is_published
