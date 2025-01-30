@@ -29,11 +29,12 @@ class CreateFrontPageRequest extends FormRequest
         return [
             'titleEn' => ['required', 'unique:front_page_translations,title,NULL,id,locale,en'],
             'titleAr' => ['required', 'unique:front_page_translations,title,NULL,id,locale,ar'],
-            'slugEn' => ['required'],
-            'slugAr' => ['required'],
+            'slugEn' => ['nullable'],
+            'slugAr' => ['nullable'],
             'metaDataEn' => ['nullable'],
             'metaDataAr' => ['nullable'],
             'isActive' => ['required', new Enum(FrontPageStatus::class)],
+            'controllerName' => ['required', 'unique:front_pages,controller_name'],
         ];
 
 

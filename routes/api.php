@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Private\Blog\BlogController;
 use App\Http\Controllers\Api\Private\Career\CandidateController;
 use App\Http\Controllers\Api\Private\Career\CareerController;
 use App\Http\Controllers\Api\Private\Certification\CertificationController;
+use App\Http\Controllers\Api\Private\Slider\SliderController;
 use App\Http\Controllers\Api\Private\CompanyTeam\CompanyTeamController;
 use App\Http\Controllers\Api\Private\ContactUs\ContactUsController;
 use App\Http\Controllers\Api\Private\ContactUs\ContactUsMessageController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Api\Private\Product\ProductImageController;
 use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\User\UserController;
 use App\Http\Controllers\Api\Public\Auth\AuthController;
+use App\Http\Controllers\FrontPages\DynamicPageController;
 use App\Models\Certification\Certification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -205,6 +207,15 @@ Route::prefix('v1/{lang}/admin/certifications')->where(['lang' => 'en|ar'])->gro
     Route::get('edit', [CertificationController::class, 'edit']);
     Route::put('update', [CertificationController::class, 'update']);
     Route::delete('delete', [CertificationController::class, 'delete']);
+});
+
+Route::prefix('v1/{lang}/admin/sliders')->where(['lang' => 'en|ar'])->group(function(){
+    Route::post('create', [SliderController::class, 'create']);
+});
+
+
+Route::prefix('v1/{lang}/admin/website-front-pages')->where(['lang' => 'en|ar'])->group(function(){
+    Route::get('{slug?}', [DynamicPageController::class, 'index']);
 });
 
 

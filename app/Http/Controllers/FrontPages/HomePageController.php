@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontPages;
 
 use App\Enums\Blog\BlogStatus;
+use App\Enums\FrontPage\FrontPageStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\Blog;
 use App\Models\FrontPage\FrontPage;
@@ -39,20 +40,18 @@ class HomePageController extends Controller
 
         session(['active_navbar_link' => $slug??'']);
 
-        if($lang == 'ar'){
-            session(['body_direction' => [
-                'direction' => 'rtl',
-                'lang' => 'ar',
-                'body_class' => 'rtl'
-            ]]);
-        }else{
-            session(['body_direction' => [
-                'direction' => 'ltr',
-                'lang' => 'en',
-                'body_class' => ''
-            ]]);
+        $frontPageData = FrontPage::select('id', 'is_active')->where('is_active', FrontPageStatus::ACTIVE)->get();
+        $navbarLinks = [];
+        foreach ($frontPageData as $frontPage) {
+            $navbarLinks[] = [
+                'title' => $frontPage->title,
+                'slug' => $frontPage->slug,
+            ];
         }
 
-        return view('Home.index', compact('homePage', 'products', 'blogs'));
+
+        return response()->json([
+            'navbarLinks' => $navbarLinks
+        ]);
     }
 }

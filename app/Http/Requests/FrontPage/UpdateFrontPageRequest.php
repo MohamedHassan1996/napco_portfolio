@@ -32,11 +32,13 @@ class UpdateFrontPageRequest extends FormRequest
             ->ignore($this->frontPageId, 'front_page_id')->where('locale', 'en')],
             'titleAr' => ['required', Rule::unique('front_page_translations', 'title')
             ->ignore($this->frontPageId, 'front_page_id')->where('locale', 'ar')],
-            'slugEn' => ['required'],
-            'slugAr' => ['required'],
+            'slugEn' => ['nullable'],
+            'slugAr' => ['nullable'],
             'metaDataEn' => ['nullable'],
             'metaDataAr' => ['nullable'],
             'isActive' => ['required', new Enum(FrontPageStatus::class)],
+            'controllerName' => ['required', Rule::unique('front_pages', 'controller_name')
+            ->ignore($this->frontPageId, 'front_page_id')]
         ];
     }
 

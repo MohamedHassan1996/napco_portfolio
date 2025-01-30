@@ -36,15 +36,17 @@ class FrontPageService{
 
         $frontPage->is_active = FrontPageStatus::from($frontPageData['isActive'])->value;
 
+        $frontPage->controller_name = $frontPageData['controllerName'];
+
         if(!empty($frontPageData['titleAr'])){
             $frontPage->translateOrNew('ar')->title = $frontPageData['titleAr'];
-            $frontPage->translateOrNew('ar')->slug = $frontPageData['slugAr'];
+            $frontPage->translateOrNew('ar')->slug = $frontPageData['slugAr']??"";
             $frontPage->translateOrNew('ar')->meta_data = $frontPageData['metaDataAr'];
         }
 
         if(!empty($frontPageData['titleEn'])){
             $frontPage->translateOrNew('en')->title = $frontPageData['titleEn'];
-            $frontPage->translateOrNew('en')->slug = $frontPageData['slugEn'];
+            $frontPage->translateOrNew('en')->slug = $frontPageData['slugEn']??"";
             $frontPage->translateOrNew('en')->meta_data = $frontPageData['metaDataEn'];
         }
 
@@ -65,16 +67,17 @@ class FrontPageService{
         $frontPage = FrontPage::find($frontPageData['frontPageId']);
 
         $frontPage->is_active = FrontPageStatus::from($frontPageData['isActive'])->value;
+        $frontPage->controller_name = $frontPageData['controllerName'];
 
         if(!empty($frontPageData['titleAr'])){
             $frontPage->translateOrNew('ar')->title = $frontPageData['titleAr'];
-            $frontPage->translateOrNew('ar')->slug = $frontPageData['slugAr'];
+            $frontPage->translateOrNew('ar')->slug = $frontPageData['slugAr']??"";
             $frontPage->translateOrNew('ar')->meta_data = $frontPageData['metaDataAr'];
         }
 
         if(!empty($frontPageData['titleEn'])){
             $frontPage->translateOrNew('en')->title = $frontPageData['titleEn'];
-            $frontPage->translateOrNew('en')->slug = $frontPageData['slugEn'];
+            $frontPage->translateOrNew('en')->slug = $frontPageData['slugEn']??"";
             $frontPage->translateOrNew('en')->meta_data = $frontPageData['metaDataEn'];
         }
 
