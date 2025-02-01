@@ -210,7 +210,11 @@ Route::prefix('v1/{lang}/admin/certifications')->where(['lang' => 'en|ar'])->gro
 });
 
 Route::prefix('v1/{lang}/admin/sliders')->where(['lang' => 'en|ar'])->group(function(){
-    Route::post('create', [SliderController::class, 'create']);
+      Route::get('', [SliderController::class, 'index']);
+      Route::get('edit', [SliderController::class, 'edit']);
+      Route::post('create', [SliderController::class, 'create']);
+      Route::put('update', [SliderController::class, 'update']);
+      Route::delete('delete', [SliderController::class, 'delete']);
 });
 
 

@@ -12,7 +12,7 @@ class SliderItemTranslation extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'content'
+        'content',
     ];
 
     protected $casts = [

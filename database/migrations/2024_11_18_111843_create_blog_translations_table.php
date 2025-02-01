@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->nullable();
+            $table->string('description')->nullable();
             $table->text('content');
             $table->json('meta_data')->nullable();
             $table->unsignedBigInteger('blog_id'); // Add event_id column
