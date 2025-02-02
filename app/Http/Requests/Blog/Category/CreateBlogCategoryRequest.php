@@ -27,8 +27,10 @@ class CreateBlogCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nameEn' => ['required', 'unique:blog_categories_translations,name,NULL,id,locale,en'],
-            'nameAr' => ['required', 'unique:blog_categories_translations,name,NULL,id,locale,ar'],
+            // 'nameEn' => ['required', 'unique:blog_categories_translations,name,NULL,id,locale,en'],
+            // 'nameAr' => ['required', 'unique:blog_categories_translations,name,NULL,id,locale,ar'],
+            'nameEn' => ['required'],
+            'nameAr' => ['required'],
             'slugEn' => ['required'],
             'slugAr' => ['required'],
             'isActive' => ['required', new Enum(BlogCategoryStatus::class)]

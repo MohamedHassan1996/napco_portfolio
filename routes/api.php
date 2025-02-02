@@ -215,6 +215,7 @@ Route::prefix('v1/{lang}/admin/sliders')->where(['lang' => 'en|ar'])->group(func
       Route::post('create', [SliderController::class, 'create']);
       Route::put('update', [SliderController::class, 'update']);
       Route::delete('delete', [SliderController::class, 'delete']);
+      Route::post('updateSlideItem', [SliderController::class, 'updateSlideItem']);
 });
 
 

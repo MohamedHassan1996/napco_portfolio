@@ -86,16 +86,22 @@ class EventService{
         if(isset($eventData['thumbnail']) && $eventData['thumbnail'] instanceof UploadedFile){
             $path =  $this->uploadService->uploadFile($eventData['thumbnail'], 'events');
         }
+        if($event->thumbnail && $path){
+            Storage::disk('public')->delete($event->thumbnail);
+        }
 
+        if($path){
+            $event->thumbnail = $path;
+        }
         $event->is_published = EventStatus::from($eventData['isPublished'])->value;
         $event->thumbnail = $path;
         $event->date = $eventData['date'];
         $event->time = $eventData['time'];
         $event->location = $eventData['location'];
 
-        if($path){
-            $event->thumbnail = $path;
-        }
+        // if($path){
+        //     $event->thumbnail = $path;
+        // }
 
         if (!empty($eventData['titleAr'])) {
             $event->translateOrNew('ar')->title = $eventData['titleAr'];
@@ -110,10 +116,10 @@ class EventService{
             $event->translateOrNew('en')->description = $eventData['descriptionEn'];
             $event->translateOrNew('en')->meta_data = $eventData['metaDataEn'];
         }
-        if($path){
-            Storage::disk('public')->delete($path);
-            $event->thumbnail = $path;
-        }
+        // if($path){
+        //     Storage::disk('public')->delete($path);
+        //     $event->thumbnail = $path;
+        // }
 
 
         $event->save();

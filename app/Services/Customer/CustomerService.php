@@ -4,6 +4,7 @@ namespace App\Services\Customer;
 
 use App\Filters\Customer\FilterCustomer;
 use App\Models\Customer\Customer;
+use PhpParser\Node\NullableType;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -31,10 +32,10 @@ class CustomerService{
 
         $customer = Customer::create([
             'name' => $customerData['name'],
-            'email' => $customerData['email'],
-            'phone' => $customerData['phone'],
-            'address' => $customerData['address'],
-            'description' => $customerData['description'],
+            'email' => $customerData['email']??null,
+            'phone' => $customerData['phone']??null,
+            'address' => $customerData['address']??null,
+            'description' => $customerData['description']??null,
         ]);
 
         return $customer;
@@ -53,10 +54,10 @@ class CustomerService{
 
         $customer->update([
             'name' => $customerData['name'],
-            'email' => $customerData['email'],
-            'phone' => $customerData['phone'],
-            'address' => $customerData['address'],
-            'description' => $customerData['description'],
+            'email' => $customerData['email']??null,
+            'phone' => $customerData['phone']??null,
+            'address' => $customerData['address']??null,
+            'description' => $customerData['description']??null,
         ]);
 
         return $customer;

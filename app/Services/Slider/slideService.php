@@ -2,6 +2,7 @@
 
 namespace App\Services\Slider;
 
+use App\Models\FrontPage\FrontPageSection;
 use App\Models\Slider\Slider;
 use App\Models\Slider\SliderItem;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -29,10 +30,16 @@ class slideService{
 
     public function create(array $data)
     {
-
+        //selectId
+        $frontPageSectionId= FrontPageSection::findOrFail($data['frontPageSectionId']);
             $slider = Slider::create([
                 'title' => $data['title']
             ]);
+            if($frontPageSectionId)
+            {
+                $frontPageSectionId->slider_id=$slider->id;
+                $frontPageSectionId->save();
+            }
             foreach ($data['sliderItems'] as $item) {
                     if (isset($item['media']))
                     {
@@ -65,8 +72,14 @@ class slideService{
 
     public function update(array $data)
     {
-
-            $slider=Slider::findOrFail($data['slideId']);
+           //selectId
+           $slider=Slider::findOrFail($data['slideId']);
+           $frontPageSectionId= FrontPageSection::findOrFail($data['frontPageSectionId']);
+           if($frontPageSectionId)
+           {
+               $frontPageSectionId->slider_id=$slider->id;
+               $frontPageSectionId->save();
+           }
             $sliderItems =$slider->sliderItems;
             $slider->update([
                 'title' => $data['title']
