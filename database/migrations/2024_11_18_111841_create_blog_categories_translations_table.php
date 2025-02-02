@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('blog_categories_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->nullable();
             $table->unsignedBigInteger('blog_category_id'); // Add event_id column
             $table->string('locale');               // Add locale column for uniqueness constraint

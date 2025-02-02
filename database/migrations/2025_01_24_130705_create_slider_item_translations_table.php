@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('slider_item_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('media')->nullable();
-            $table->string('media_type', 50)->nullable();
             $table->json('content')->nullable();
             $table->unsignedBigInteger('slider_item_id'); // Add event_id column
             $table->string('locale');               // Add locale column for uniqueness constraint

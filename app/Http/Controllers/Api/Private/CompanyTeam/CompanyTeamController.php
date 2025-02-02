@@ -111,7 +111,7 @@ class CompanyTeamController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->companyTeamService->deleteCompanyTeam($request->certifcationId);
+            $this->companyTeamService->deleteCompanyTeam($request->companyTeamId);
             DB::commit();
             return response()->json([
                 'message' => __('messages.success.deleted')

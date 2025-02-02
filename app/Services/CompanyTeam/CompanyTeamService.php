@@ -2,12 +2,15 @@
 
 namespace App\Services\CompanyTeam;
 
-use App\Models\CompanyTeam\CompanyTeam;
-use App\Services\Upload\UploadService;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Services\Upload\UploadService;
+use Spatie\QueryBuilder\AllowedFilter;
+use App\Models\CompanyTeam\CompanyTeam;
+use Illuminate\Support\Facades\Storage;
+use App\Filters\CompanyTeam\companyTeamSearchFilter;
+
+
 
 class CompanyTeamService{
 
@@ -25,7 +28,7 @@ class CompanyTeamService{
 
         $companyTeams = QueryBuilder::for(CompanyTeam::class)
             ->allowedFilters([
-               /* AllowedFilter::custom('search', new companyTeamSearchTranslatableFilter()), // Add a custom search filter*/
+               AllowedFilter::custom('search', new companyTeamSearchFilter()), // Add a custom search filter*/
             ])
             ->get();
 
@@ -99,11 +102,9 @@ class CompanyTeamService{
     {
 
         $companyTeam  = CompanyTeam::find($companyTeamId);
-
         if($companyTeam->image){
             Storage::disk('public')->delete($companyTeam->image);
         }
-
         $companyTeam->delete();
 
     }

@@ -2,12 +2,13 @@
 
 namespace App\Services\Certification;
 
-use App\Models\Certification\Certification;
-use App\Services\Upload\UploadService;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Services\Upload\UploadService;
+use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Certification\Certification;
+use App\Filters\Certification\CertificationSearchTranslatableFilter;
 
 class CertificationService{
 
@@ -26,7 +27,7 @@ class CertificationService{
         $certifications = QueryBuilder::for(Certification::class)
             ->withTranslation() // Fetch translations if applicable
             ->allowedFilters([
-               /* AllowedFilter::custom('search', new CertificationSearchTranslatableFilter()), // Add a custom search filter*/
+               AllowedFilter::custom('search', new CertificationSearchTranslatableFilter()), // Add a custom search filter*/
             ])
             ->get();
 
@@ -114,7 +115,6 @@ class CertificationService{
     {
 
         $certification  = Certification::find($certificationId);
-
         if($certification->image){
             Storage::disk('public')->delete($certification->image);
         }

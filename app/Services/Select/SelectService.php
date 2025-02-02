@@ -46,6 +46,7 @@ class SelectService
             'roles' => ['getAllRoles', RoleSelectService::class],
             'permissions' => ['getAllPermissions', PermissionSelectService::class],
             'blogCategories' => ['getAllBlogCategories', BlogCategorySelectService::class],
+            'frontPageSections'=>['getAllFrontPageSectinos',frontPageSectionSelect::class]
             //'parameters' => ['getAllParameters', ParameterSelectService::class]
         ];
 
