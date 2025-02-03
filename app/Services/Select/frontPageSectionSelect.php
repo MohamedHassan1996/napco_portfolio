@@ -8,6 +8,7 @@ class frontPageSectionSelect
 {
     public function getAllFrontPageSectinos()
     {
+        dd("dd");
         return FrontPageSection::all(['id as value', 'name as label']);
     }
 
