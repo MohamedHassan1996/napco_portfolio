@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api\Private\FrontPage;
 
+use Illuminate\Http\Request;
+use App\Utils\PaginateCollection;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\FrontPage\PageSection;
+use Illuminate\Auth\Events\Validated;
+use App\Services\FrontPage\FrontPageService;
+use App\Http\Resources\FrontPage\FrontPageResource;
 use App\Http\Requests\FrontPage\CreateFrontPageRequest;
 use App\Http\Requests\FrontPage\UpdateFrontPageRequest;
 use App\Http\Resources\FrontPage\AllFrontPageCollection;
-use App\Http\Resources\FrontPage\FrontPageResource;
-use App\Utils\PaginateCollection;
-use App\Services\FrontPage\FrontPageService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 
 class FrontPagecontroller extends Controller

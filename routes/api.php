@@ -1,34 +1,35 @@
 <?php
 
-use App\Http\Controllers\Api\Private\Blog\BlogCategoryController;
-use App\Http\Controllers\Api\Private\Blog\BlogController;
-use App\Http\Controllers\Api\Private\Career\CandidateController;
-use App\Http\Controllers\Api\Private\Career\CareerController;
-use App\Http\Controllers\Api\Private\Certification\CertificationController;
-use App\Http\Controllers\Api\Private\Slider\SliderController;
-use App\Http\Controllers\Api\Private\CompanyTeam\CompanyTeamController;
-use App\Http\Controllers\Api\Private\ContactUs\ContactUsController;
-use App\Http\Controllers\Api\Private\ContactUs\ContactUsMessageController;
-use App\Http\Controllers\Api\Private\ContactUs\WebsiteContactUsController;
-use App\Http\Controllers\Api\Private\Customer\CustomerController;
-use App\Http\Controllers\Api\Private\Event\EventController;
-use App\Http\Controllers\Api\Private\Faq\FaqController;
-use App\Http\Controllers\Api\Private\MainSetting\MainSettingController;
-use App\Http\Controllers\Api\Private\FrontPage\FrontPagecontroller;
-use App\Http\Controllers\Api\Private\FrontPage\FrontPageSectionController;
-use App\Http\Controllers\Api\Private\Newsletter\NewsletterController;
-use App\Http\Controllers\Api\Private\Newsletter\SubscriberController;
-use App\Http\Controllers\Api\Private\Newsletter\WebsiteSubscriberController;
-use App\Http\Controllers\Api\Private\Product\ProductCategoryController;
-use App\Http\Controllers\Api\Private\Product\ProductController;
-use App\Http\Controllers\Api\Private\Product\ProductImageController;
-use App\Http\Controllers\Api\Private\Select\SelectController;
-use App\Http\Controllers\Api\Private\User\UserController;
-use App\Http\Controllers\Api\Public\Auth\AuthController;
-use App\Http\Controllers\FrontPages\DynamicPageController;
-use App\Models\Certification\Certification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Certification\Certification;
+use App\Http\Controllers\Api\Private\Faq\FaqController;
+use App\Http\Controllers\Api\Public\Auth\AuthController;
+use App\Http\Controllers\Api\Private\Blog\BlogController;
+use App\Http\Controllers\Api\Private\User\UserController;
+use App\Http\Controllers\FrontPages\DynamicPageController;
+use App\Http\Controllers\Api\Private\Event\EventController;
+use App\Http\Controllers\Api\Private\Career\CareerController;
+use App\Http\Controllers\Api\Private\Select\SelectController;
+use App\Http\Controllers\Api\Private\Slider\SliderController;
+use App\Http\Controllers\Api\Private\Product\ProductController;
+use App\Http\Controllers\Api\Private\Career\CandidateController;
+use App\Http\Controllers\Api\Private\Blog\BlogCategoryController;
+use App\Http\Controllers\Api\Private\Customer\CustomerController;
+use App\Http\Controllers\Api\Private\ContactUs\ContactUsController;
+use App\Http\Controllers\Api\Private\FrontPage\FrontPagecontroller;
+use App\Http\Controllers\Api\Private\Product\ProductImageController;
+use App\Http\Controllers\Api\Private\FrontPage\PageSectionController;
+use App\Http\Controllers\Api\Private\Newsletter\NewsletterController;
+use App\Http\Controllers\Api\Private\Newsletter\SubscriberController;
+use App\Http\Controllers\Api\Private\CompanyTeam\CompanyTeamController;
+use App\Http\Controllers\Api\Private\MainSetting\MainSettingController;
+use App\Http\Controllers\Api\Private\Product\ProductCategoryController;
+use App\Http\Controllers\Api\Private\ContactUs\ContactUsMessageController;
+use App\Http\Controllers\Api\Private\ContactUs\WebsiteContactUsController;
+use App\Http\Controllers\Api\Private\FrontPage\FrontPageSectionController;
+use App\Http\Controllers\Api\Private\Certification\CertificationController;
+use App\Http\Controllers\Api\Private\Newsletter\WebsiteSubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,6 +167,9 @@ Route::prefix('v1/{lang}/admin/front-pages')->where(['lang' => 'en|ar'])->group(
     Route::get('edit', [FrontPagecontroller::class, 'edit']);
     Route::put('update', [FrontPagecontroller::class, 'update']);
     Route::delete('delete', [FrontPagecontroller::class, 'delete']);
+});
+Route::prefix('v1/{lang}/admin/page-section')->where(['lang' => 'en|ar'])->group(function(){
+    Route::post('create',[PageSectionController::class,'store']);
 });
 
 Route::prefix('v1/{lang}/admin/front-page-sections')->where(['lang' => 'en|ar'])->group(function(){
