@@ -15,6 +15,7 @@ class AllSliderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return[
+            "slideId"=>$this->id,
             "title"=>$this->title,
             "sliderItem"=>SliderResource::collection($this->whenLoaded('sliderItems'))
         ];

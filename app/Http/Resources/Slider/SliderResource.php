@@ -16,7 +16,7 @@ class SliderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->id,
+            'slideItemId'=>$this->id,
             'media'=>$this->media?Storage::disk('public')->url($this->media):"",
             "mediaType"=>$this->media_type,
             "isActive"=>$this->is_active,
