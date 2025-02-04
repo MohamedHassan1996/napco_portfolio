@@ -5,6 +5,7 @@ namespace App\Http\Resources\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\FrontPage\FrontPageSection\FrontPageSectionResource;
 
 class SliderResource extends JsonResource
 {
@@ -27,7 +28,7 @@ class SliderResource extends JsonResource
             "mediaType"=>$this->media_type,
             "isActive"=>$this->is_active,
             "contentEn"=>$translations['contentEn']??"",
-            "contentAr"=>$translations['contentAr']??""
+            "contentAr"=>$translations['contentAr']??"",
         ];
     }
 }

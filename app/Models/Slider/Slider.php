@@ -22,6 +22,6 @@ class Slider extends Model
     }
     public function frontPageSections()
     {
-      return $this->hasMany(FrontPageSection::class,'slide_id');
+      return $this->hasMany(FrontPageSection::class,'slider_id');
     }
 }
