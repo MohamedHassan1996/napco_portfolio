@@ -31,15 +31,17 @@ class slideService{
     public function create(array $data)
     {
         //selectId
-        $frontPageSectionId= FrontPageSection::findOrFail($data['frontPageSectionId']);
-            $slider = Slider::create([
-                'title' => $data['title']
-            ]);
-            if($frontPageSectionId)
-            {
+        $slider = Slider::create([
+            'title' => $data['title']
+        ]);
+        if($data['frontPageSectionId'])
+        {
+            foreach ($data['frontPageSectionId'] as $frontPageSectionId) {
+                $frontPageSectionId= FrontPageSection::findOrFail($frontPageSectionId);
                 $frontPageSectionId->slider_id=$slider->id;
                 $frontPageSectionId->save();
             }
+        }
             foreach ($data['sliderItems'] as $item) {
                     if (isset($item['media']))
                     {
@@ -74,11 +76,13 @@ class slideService{
     {
            //selectId
            $slider=Slider::findOrFail($data['slideId']);
-           $frontPageSectionId= FrontPageSection::findOrFail($data['frontPageSectionId']);
-           if($frontPageSectionId)
+           if($data['frontPageSectionId'])
            {
-               $frontPageSectionId->slider_id=$slider->id;
-               $frontPageSectionId->save();
+               foreach ($data['frontPageSectionId'] as $frontPageSectionId) {
+                   $frontPageSectionId= FrontPageSection::findOrFail($frontPageSectionId);
+                   $frontPageSectionId->slider_id=$slider->id;
+                   $frontPageSectionId->save();
+               }
            }
             $sliderItems =$slider->sliderItems;
             $slider->update([
