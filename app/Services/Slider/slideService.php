@@ -84,35 +84,36 @@ class slideService{
                    $frontPageSectionId->save();
                }
            }
-            $sliderItems =$slider->sliderItems;
+            // $sliderItems =$slider->sliderItems;
             $slider->update([
                 'title' => $data['title']
             ]);
-            foreach ($sliderItems as $item) {
+            foreach ($data['sliderItems'] as $item) {
+                $sliderItem = SliderItem::findOrFail($item['sliderItemId']);
                     if (isset($item['media']))
                     {
-                        if($item->media)
+                        if($sliderItem->media)
                         {
-                            Storage::disk('public')->delete($item->media);
+                            Storage::disk('public')->delete($sliderItem->media);
                         }
                         $mediaPath = $this->uploadService->uploadFile($item['media'], 'sliders');
                     }
                     //title, is_active(boolean), slider_id(sliders), media(string), media_type(string), content(json)
-                    $item->is_active =SliderItemStatus::from($item['isActive'])->value ;
-                    $item->media_type =SliderItemMediaType::from($item['MediaType'])->value;
-                    $item->media = $mediaPath?? null;
+                    $sliderItem->is_active =SliderItemStatus::from($item['isActive'])->value ;
+                    $sliderItem->media_type =SliderItemMediaType::from($item['MediaType'])->value;
+                    $sliderItem->media = $mediaPath?? null;
                     if (!empty($item['contentAr'])) {
-                        $item->translateOrNew('ar')->content = $item['contentAr'];
+                        $sliderItem->translateOrNew('ar')->content = $item['contentAr'];
                     }
 
                     if (!empty($item['contentEn'])) {
-                        $item->translateOrNew('en')->content = $item['contentEn'];
+                        $sliderItem->translateOrNew('en')->content = $item['contentEn'];
                     }
 
-                    $item->slider_id = $slider->id;
-                    $item->save();
+                   $sliderItem->slider_id = $slider->id;
+                   $sliderItem->save();
                 }
-            return $item;
+            return "done";
 
     }
 
