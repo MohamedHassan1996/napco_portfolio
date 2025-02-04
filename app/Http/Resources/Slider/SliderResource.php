@@ -15,12 +15,19 @@ class SliderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $translations = $this->translations->mapWithKeys(function ($translation) {
+            return [
+                'content' . ucfirst($translation->locale) => $translation->content ?? "",
+            ];
+        });
+
         return [
             'slideItemId'=>$this->id,
             'media'=>$this->media?Storage::disk('public')->url($this->media):"",
             "mediaType"=>$this->media_type,
             "isActive"=>$this->is_active,
-            "content"=>$this->content
+            "contentEn"=>$translations['contentEn']??"",
+            "contentAr"=>$translations['contentAr']??""
         ];
     }
 }
