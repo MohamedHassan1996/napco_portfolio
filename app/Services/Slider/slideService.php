@@ -90,7 +90,6 @@ class slideService{
             ]);
             foreach ($data['sliderItems'] as $item) {
                 $sliderItem = SliderItem::findOrFail($item['sliderItemId']);
-            //   dd($item['media']);
                     if (isset($item['media']) )
                     {
                         if($sliderItem->media)

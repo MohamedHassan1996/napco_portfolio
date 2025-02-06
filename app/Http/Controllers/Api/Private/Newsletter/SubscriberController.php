@@ -46,7 +46,7 @@ class SubscriberController extends Controller
      * Show the form for creating a new resource.
      */
 
-    /*public function create(CreateSubscriberRequest $createSubscriberRequest)
+    public function create(CreateSubscriberRequest $createSubscriberRequest)
     {
 
         try {
@@ -66,7 +66,7 @@ class SubscriberController extends Controller
         }
 
 
-    }*/
+    }
 
     /**
      * Show the form for editing the specified resource.
