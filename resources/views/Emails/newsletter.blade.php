@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ $content }}</title>
+    <title>{{ $message }}</title>
 </head>
 <body>
-    <h1>{{ $content }}</h1>
+    <h1>{{ $message }}</h1>
     <p>Thank you for subscribing!</p>
 </body>
 </html>
