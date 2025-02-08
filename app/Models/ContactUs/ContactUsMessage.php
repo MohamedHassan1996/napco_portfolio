@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class ContactUsMessage extends Model
 {
     use HasFactory, CreatedUpdatedBy;
-
+     protected $table="contact_us_messages";
     protected $fillable = [
         'message',
         'is_read',

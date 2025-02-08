@@ -30,6 +30,8 @@ use App\Http\Controllers\Api\Private\ContactUs\WebsiteContactUsController;
 use App\Http\Controllers\Api\Private\FrontPage\FrontPageSectionController;
 use App\Http\Controllers\Api\Private\Certification\CertificationController;
 use App\Http\Controllers\Api\Private\Newsletter\WebsiteSubscriberController;
+use App\Http\Controllers\Api\Website\SendCareerToAdmin\sendCareerToAdminController;
+use App\Http\Controllers\Api\Website\ContactUsSendAdmin\ContactUsSendAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +101,7 @@ Route::prefix('v1/{lang}/admin/faqs')->where(['lang' => 'en|ar'])->group(functio
 Route::prefix('v1/{lang}/admin/subscribers')->where(['lang' => 'en|ar'])->group(function(){
     Route::get('', [SubscriberController::class, 'index']);
     Route::get('edit', [SubscriberController::class, 'edit']);
+    Route::post('create', [SubscriberController::class, 'create']);
     Route::put('update', [SubscriberController::class, 'update']);
     Route::delete('delete', [SubscriberController::class, 'delete']);
 });
@@ -193,10 +196,15 @@ Route::prefix('v1/subscribers')->group(function(){
     Route::delete('delete', [WebsiteSubscriberController::class, 'delete']);
 });
 
-Route::prefix('v1/contact-us')->group(function(){
-    Route::post('create', [WebsiteContactUsController::class, 'create']);
+// Route::prefix('v1/contact-us')->group(function(){
+//     Route::post('create', [WebsiteContactUsController::class, 'create']);
+// });
+Route::prefix('v1/website/contact-us')->group(function(){
+    Route::post('create', [ContactUsSendAdminController::class, 'fromWebsiteContactUs']);
 });
-
+Route::prefix('v1/website/careers')->group(function(){
+    Route::post('create', [sendCareerToAdminController::class, 'SendCareerToAdmin']);
+});
 Route::prefix('v1/{lang}/admin/company-teams')->where(['lang' => 'en|ar'])->group(function(){
     Route::get('', [CompanyTeamController::class, 'index']);
     Route::post('create', [CompanyTeamController::class, 'create']);

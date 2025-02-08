@@ -90,18 +90,18 @@ class slideService{
             ]);
             foreach ($data['sliderItems'] as $item) {
                 $sliderItem = SliderItem::findOrFail($item['sliderItemId']);
-                    if (isset($item['media']))
+                    if (isset($item['media']) )
                     {
                         if($sliderItem->media)
                         {
                             Storage::disk('public')->delete($sliderItem->media);
                         }
                         $mediaPath = $this->uploadService->uploadFile($item['media'], 'sliders');
+                        $sliderItem->media = $mediaPath;
                     }
                     //title, is_active(boolean), slider_id(sliders), media(string), media_type(string), content(json)
                     $sliderItem->is_active =SliderItemStatus::from($item['isActive'])->value ;
                     $sliderItem->media_type =SliderItemMediaType::from($item['MediaType'])->value;
-                    $sliderItem->media = $mediaPath?? null;
                     if (!empty($item['contentAr'])) {
                         $sliderItem->translateOrNew('ar')->content = $item['contentAr'];
                     }

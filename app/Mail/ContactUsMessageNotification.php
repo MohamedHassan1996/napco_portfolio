@@ -30,14 +30,44 @@ class ContactUsMessageNotification extends Mailable
      *
      * @return $this
      */
+    // public function build()
+    // {
+    //     return $this->subject('New Contact Us Message')
+    //                 ->view('emails.contact_us_message')
+    //                 ->with([
+    //                     'messageContent' => $this->contactUsMessage->message,
+    //                     'isAdmin' => $this->contactUsMessage->is_admin ? 'Admin' : 'User',
+    //                     'isRead' => $this->contactUsMessage->is_read ? 'Read' : 'Unread',
+    //                 ]);
+    // }
     public function build()
     {
-        return $this->subject('New Contact Us Message')
-                    ->view('emails.contact_us_message')
+        $messageId = "<contact-{$this->contactUs->id}@yourdomain.com>";
+
+        $email = $this->subject($this->contactUs->subject)
+                    ->view('Emails.contact_us_message')
                     ->with([
+                        'subject' => $this->contactUs->subject,
                         'messageContent' => $this->contactUsMessage->message,
-                        'isAdmin' => $this->contactUsMessage->is_admin ? 'Admin' : 'User',
-                        'isRead' => $this->contactUsMessage->is_read ? 'Read' : 'Unread',
+                    ])
+                    ->replyTo($this->contactUs->email) // User will receive replies
+                    ->withHeaders([
+                        'Message-ID' => $messageId, // Unique ID for threading
                     ]);
+
+        if ($this->contactUsMessage->is_admin->value == 0) {
+            $email->from($this->contactUs->email, $this->contactUs->name);
+        }
+
+
+        // If the message is from the admin, link it to the original thread
+        if ($this->contactUsMessage->is_admin->value == 1) {
+            $email->withHeaders([
+                'In-Reply-To' => $messageId, // Ensures threading
+                'References' => $messageId, // Links it to the original message
+            ]);
+        }
+
+        return $email;
     }
 }
