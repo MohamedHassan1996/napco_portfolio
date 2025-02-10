@@ -2,12 +2,13 @@
 
 namespace App\Services\FrontPage;
 
+use App\Models\FrontPage\FrontPage;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use App\Models\MainSetting\MainSetting;
+use Illuminate\Support\Facades\Storage;
 use App\Enums\FrontPage\FrontPageStatus;
 use App\Filters\FrontPage\FrontPageSearchTranslatableFilter;
-use App\Models\FrontPage\FrontPage;
-use Illuminate\Support\Facades\Storage;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class FrontPageService{
 
@@ -102,6 +103,17 @@ class FrontPageService{
         $frontPage = FrontPage::find($frontPageId);
         $frontPage->is_active = $isActive;
         $frontPage->save();
+    }
+    public function navbarLinks()
+    {
+        $navbarLinks = FrontPage::with('translations')->where('is_active', FrontPageStatus::ACTIVE)->get();
+        return  $navbarLinks;
+    }
+
+    public function mainSetting()
+    {
+       $mainSetting=MainSetting::select(['content','logo','favicon'])->get();
+       return $mainSetting;
     }
 
 

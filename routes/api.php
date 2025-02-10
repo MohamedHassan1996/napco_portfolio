@@ -241,4 +241,19 @@ Route::prefix('v1/{lang}/admin/website-front-pages')->where(['lang' => 'en|ar'])
 Route::prefix('v1/{lang}/admin/selects')->where(['lang' => 'en|ar'])->group(function(){
     Route::get('', [SelectController::class, 'getSelects']);
 });
+Route::prefix('v1/{lang?}/website')->where(['lang' => 'en|ar'])->group(function($slug=''){
+        Route::get('', [DynamicPageController::class, 'index'])
+        ->name('dynamic.page');
+
+        Route::get('show', [DynamicPageController::class, 'show'])
+        ->name('dynamic.page.show');
+
+        // Route::get('{slug}/{single_slug}', [DynamicPageController::class, 'show'])
+        // ->where('slug', '^(?!ar|fr|es).*$') // Exclude 'ar', 'fr', 'es'
+        // ->name('dynamic.page.show');
+
+});
+
+
+
 
