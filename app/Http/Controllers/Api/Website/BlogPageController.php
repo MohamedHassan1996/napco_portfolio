@@ -83,7 +83,9 @@ class BlogPageController extends Controller
         }
 
         if (!$blog) {
-            abort(404);
+            return response()->json([
+                "message"=>"blog notFound"
+            ],404);
         }
         return response()->json([
             "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),

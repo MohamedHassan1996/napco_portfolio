@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('content');
             $table->json('extra_details')->nullable();
             $table->json('meta_data')->nullable();

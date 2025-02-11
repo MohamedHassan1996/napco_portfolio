@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api\Website;
 
-use App\Http\Resources\Certification\AllCertificationResource;
 use Illuminate\Http\Request;
+use App\Models\Career\Career;
 use App\Models\FrontPage\FrontPage;
 use App\Http\Controllers\Controller;
 use App\Services\Career\CareerService;
 use App\Services\FrontPage\FrontPageService;
+use App\Http\Resources\Career\CareerResource;
 use App\Services\Certification\CertificationService;
 use App\Http\Resources\FrontPage\AllFrontPageResource;
 use App\Http\Resources\Career\Website\AllCareerResource;
+use App\Http\Resources\Certification\AllCertificationResource;
 use App\Http\Resources\FrontPage\Website\NavbarLinksSlugResource;
 use App\Http\Resources\FrontPage\Website\FrontPageWebsiteResource;
 
@@ -62,27 +64,33 @@ class CareerPageController extends Controller
          ]);
     }
     // public function show($lang = 'en', $slug, $singleSlug, Request $request)
-    public function show( Request $request)
+    public function show($mainSetting,$navbarLinks,Request $request)
     {
-           return response()->json([
-               "message"=>"the CareerPage show NotFound"
-           ],404);
-        // $product = Product::with('translations')
-        // ->whereHas('translations', function ($query) use ($singleSlug) {
-        //     $query->where('slug', $singleSlug)->where('locale', app()->getLocale());
-        // })
-        // ->first();
+        try {
+        $singleSlug= $request->get('singleSlug');
+        $slug= $request->get('slug');
+        $career = Career::with('translations')
+        ->whereHas('translations', function ($query) use ($singleSlug) {
+            $query->where('slug', $singleSlug)->where('locale', app()->getLocale());
+        })
+        ->first();
 
-        // if (!$product) {
-        //     $product = Product::with('translations')
-        //     ->whereHas('translations', function ($query) use ($singleSlug) {
-        //         $query->where('slug', $singleSlug)->whereIn('locale', ['en', 'ar']);
-        //     })
-        //     ->first();
-        // }
-
-        // if (!$product) {
-        //     abort(404);
-        // }
+        if (!$career) {
+            $career = Career::with('translations')
+            ->whereHas('translations', function ($query) use ($singleSlug) {
+                $query->where('slug', $singleSlug)->whereIn('locale', ['en', 'ar']);
+            })
+            ->first();
+        }
+        return response()->json([
+            "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),
+            "page"=>  new CareerResource($career),
+            "mainSetting"=>$mainSetting
+        ]);
+    }catch (\Throwable $th) {
+        return response()->json([
+            "message"=>"product slug notFound"
+        ],404);
+    }
     }
 }
