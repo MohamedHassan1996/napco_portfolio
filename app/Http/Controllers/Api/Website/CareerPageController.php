@@ -2,36 +2,28 @@
 
 namespace App\Http\Controllers\Api\Website;
 
+use App\Http\Resources\Certification\AllCertificationResource;
 use Illuminate\Http\Request;
-use App\Models\Product\Product;
 use App\Models\FrontPage\FrontPage;
 use App\Http\Controllers\Controller;
-use App\Models\Product\ProductCategory;
-use App\Services\Product\ProductService;
+use App\Services\Career\CareerService;
 use App\Services\FrontPage\FrontPageService;
-use App\Services\Product\ProductImageService;
-use App\Services\Product\ProductCategoryService;
+use App\Services\Certification\CertificationService;
 use App\Http\Resources\FrontPage\AllFrontPageResource;
+use App\Http\Resources\Career\Website\AllCareerResource;
 use App\Http\Resources\FrontPage\Website\NavbarLinksSlugResource;
 use App\Http\Resources\FrontPage\Website\FrontPageWebsiteResource;
 
-class HomePageController extends Controller
+class CareerPageController extends Controller
 {
-    protected $frontPageService;
-    protected $productService;
-    protected $productImageService;
-    protected $productCategoryService;
-    public function __construct(FrontPageService $frontPageService,
-    ProductCategoryService $productCategoryService,
-    ProductService $productService ,
-    ProductImageService $productImageService)
-    {
-        $this->frontPageService = $frontPageService;
-        $this->productService = $productService;
-        $this->productCategoryService = $productCategoryService;
-        $this->productImageService = $productImageService;
-    }
+    protected $certificationService;
+    protected $careerService;
 
+    public function __construct(CertificationService $certificationService ,CareerService $careerService)
+    {
+        $this->certificationService = $certificationService;
+        $this->careerService = $careerService;
+    }
     public function index($mainSetting,$navbarLinks,$lang='en', $slug=null)
     {
         $locale = app()->getLocale();
@@ -41,8 +33,8 @@ class HomePageController extends Controller
                 $query->where('locale', $locale);
             }])
             ->first();
-        $products =$this->productService->allProducts();
-        // $products = Product::all();
+          $careerService= $this->careerService->allCareers();
+          $certifications = $this->certificationService->allCertifications();
 
         session(['active_navbar_link' => $slug??'']);
 
@@ -62,18 +54,19 @@ class HomePageController extends Controller
 
          return response()->json([
              "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),
-             "page"=>new FrontPageWebsiteResource($homePage),
+             "page"=>[
+                 'AllCareer'=>AllCareerResource::collection($careerService),
+                 'AllCertification'=> AllCertificationResource::collection($certifications)
+                 ],
              "mainSetting"=>$mainSetting
          ]);
     }
     // public function show($lang = 'en', $slug, $singleSlug, Request $request)
     public function show( Request $request)
     {
-         if (!$request->singleSlug && $request->singleSlug == null) {
            return response()->json([
-               "message"=>"the homePage show NotFound"
+               "message"=>"the CareerPage show NotFound"
            ],404);
-        }
         // $product = Product::with('translations')
         // ->whereHas('translations', function ($query) use ($singleSlug) {
         //     $query->where('slug', $singleSlug)->where('locale', app()->getLocale());

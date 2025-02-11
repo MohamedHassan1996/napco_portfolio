@@ -19,5 +19,6 @@ class NavbarLinksSlugResource extends JsonResource
             'title'=>$this->title,
             'slug'=>$this->slug,
         ];
+
     }
 }

@@ -7,58 +7,41 @@ use App\Models\Product\Product;
 use App\Models\FrontPage\FrontPage;
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductCategory;
-use App\Services\Product\ProductService;
 use App\Services\FrontPage\FrontPageService;
-use App\Services\Product\ProductImageService;
-use App\Services\Product\ProductCategoryService;
 use App\Http\Resources\FrontPage\AllFrontPageResource;
 use App\Http\Resources\FrontPage\Website\NavbarLinksSlugResource;
 use App\Http\Resources\FrontPage\Website\FrontPageWebsiteResource;
-
-class HomePageController extends Controller
+class OurFactoryPageController extends Controller
 {
     protected $frontPageService;
-    protected $productService;
-    protected $productImageService;
-    protected $productCategoryService;
-    public function __construct(FrontPageService $frontPageService,
-    ProductCategoryService $productCategoryService,
-    ProductService $productService ,
-    ProductImageService $productImageService)
+
+    public function __construct(FrontPageService $frontPageService)
     {
         $this->frontPageService = $frontPageService;
-        $this->productService = $productService;
-        $this->productCategoryService = $productCategoryService;
-        $this->productImageService = $productImageService;
     }
-
     public function index($mainSetting,$navbarLinks,$lang='en', $slug=null)
     {
         $locale = app()->getLocale();
-
-        $homePage = FrontPage::where('controller_name', 'HomePageController')
+        $homePage = FrontPage::where('controller_name', 'OurFactoryPageController')
             ->with(['sections.translations' => function ($query) use ($locale) {
                 $query->where('locale', $locale);
             }])
             ->first();
-        $products =$this->productService->allProducts();
-        // $products = Product::all();
-
         session(['active_navbar_link' => $slug??'']);
 
-        // if($lang == 'ar'){
-        //     session(['body_direction' => [
-        //         'direction' => 'rtl',
-        //         'lang' => 'ar',
-        //         'body_class' => 'rtl'
-        //     ]]);
-        // }else{
-        //     session(['body_direction' => [
-        //         'direction' => 'ltr',
-        //         'lang' => 'en',
-        //         'body_class' => ''
-        //     ]]);
-        // }
+        if($lang == 'ar'){
+            session(['body_direction' => [
+                'direction' => 'rtl',
+                'lang' => 'ar',
+                'body_class' => 'rtl'
+            ]]);
+        }else{
+            session(['body_direction' => [
+                'direction' => 'ltr',
+                'lang' => 'en',
+                'body_class' => ''
+            ]]);
+        }
 
          return response()->json([
              "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),
@@ -66,14 +49,12 @@ class HomePageController extends Controller
              "mainSetting"=>$mainSetting
          ]);
     }
-    // public function show($lang = 'en', $slug, $singleSlug, Request $request)
     public function show( Request $request)
     {
-         if (!$request->singleSlug && $request->singleSlug == null) {
            return response()->json([
-               "message"=>"the homePage show NotFound"
+               "message"=>"the ourFactory show NotFound"
            ],404);
-        }
+
         // $product = Product::with('translations')
         // ->whereHas('translations', function ($query) use ($singleSlug) {
         //     $query->where('slug', $singleSlug)->where('locale', app()->getLocale());

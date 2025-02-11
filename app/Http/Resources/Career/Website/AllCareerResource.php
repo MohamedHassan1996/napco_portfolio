@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Resources\FrontPage\Website;
+namespace App\Http\Resources\Career\Website;
 
-use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\FrontPage\FrontPageSection\FrontPageSectionResource;
 
-class FrontPageWebsiteResource extends JsonResource
+class AllCareerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +14,11 @@ class FrontPageWebsiteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
-        return [
-            'frontPageId' => $this->id,
+     return [
+            'careerId' => $this->id,
             'title' => $this->title,
+            'description' => $this->description??"",
             'isActive' => $this->is_active,
-            "sections"=>FrontPageSectionResource::collection($this->sections),
         ];
     }
 }
