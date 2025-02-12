@@ -29,7 +29,7 @@ class AllProductResource extends JsonResource
             'slugAr' => $translations['slugAr'] ?? "",
             'name' => $this->name,
             'isActive' => $this->is_active,
-            'productCategoryId' => $this->category_id??"",
+            'productCategoryId' => $this->product_category_id??"",
             'image' => $this->images->first() != null? Storage::disk('public')->url($this->images->first()->path):"",
         ];
     }
