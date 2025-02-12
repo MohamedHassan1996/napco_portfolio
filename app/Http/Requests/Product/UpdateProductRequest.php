@@ -32,8 +32,8 @@ class UpdateProductRequest extends FormRequest
             ->ignore($this->productId, 'product_id')->where('locale', 'en')],
             'nameAr' => ['required', Rule::unique('product_translations', 'name')
             ->ignore($this->productId, 'product_id')->where('locale', 'ar')],
-            'descriptionEn' => ['required'],
-            'descriptionAr' => ['required'],
+            'descriptionEn' => ['nullable'],
+            'descriptionAr' => ['nullable'],
             'slugEn' => ['required'],
             'slugAr' => ['required'],
             'contentEn' => ['required'],

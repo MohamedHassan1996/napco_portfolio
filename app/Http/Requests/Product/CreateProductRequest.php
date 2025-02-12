@@ -29,8 +29,8 @@ class CreateProductRequest extends FormRequest
         return [
             'nameEn' => ['required', 'unique:product_translations,name,NULL,id,locale,en'],
             'nameAr' => ['required', 'unique:product_translations,name,NULL,id,locale,ar'],
-            'descriptionAr' => ['required'],
-            'descriptionEn' => ['required'],
+            'descriptionAr' => ['nullable'],
+            'descriptionEn' => ['nullable'],
             'slugEn' => ['required'],
             'slugAr' => ['required'],
             'contentEn' => ['required'],
