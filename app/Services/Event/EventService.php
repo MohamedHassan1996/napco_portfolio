@@ -95,14 +95,9 @@ class EventService{
             $event->thumbnail = $path;
         }
         $event->is_published = EventStatus::from($eventData['isPublished'])->value;
-        $event->thumbnail = $path;
         $event->date = $eventData['date'];
         $event->time = $eventData['time'];
         $event->location = $eventData['location'];
-
-        if($path){
-            $event->thumbnail = $path;
-        }
 
         if (!empty($eventData['titleAr'])) {
             $event->translateOrNew('ar')->title = $eventData['titleAr'];
