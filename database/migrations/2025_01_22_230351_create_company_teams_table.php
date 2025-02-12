@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('company_teams', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('job_title');
             $table->string('image')->nullable();
             $table->json('social_links')->nullable();

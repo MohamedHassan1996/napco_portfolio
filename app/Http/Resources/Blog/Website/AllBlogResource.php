@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Blog;
+namespace App\Http\Resources\Blog\Website;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AllBlogResource extends JsonResource
 {
@@ -21,11 +21,9 @@ class AllBlogResource extends JsonResource
                 'slug' . ucfirst($translation->locale) => $translation->slug ?? "",
             ];
         });
-
         return [
             'blogId' => $this->id,
             'title' => $this->title,
-            //'content' => $this->content??"",
             'slugAr' => $translations['slugAr'] ?? "",
             'slugEn' => $translations['slugEn'] ?? "",
             'thumbnail' => $this->thumbnail?Storage::disk('public')->url($this->thumbnail):"",

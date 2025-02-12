@@ -29,8 +29,8 @@ class ProductController extends Controller
         // $this->middleware('permission:delete_user', ['only' => ['delete']]);
         // $this->middleware('permission:change_user_status', ['only' => ['changeStatus']]);
         $this->productService = $productService;
-        $this->uploadService = $uploadService;
         $this->productImageService = $productImageService;
+        $this->uploadService = $uploadService;
     }
 
     /**

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Product;
+namespace App\Http\Resources\Product\Website;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
-
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AllProductResource extends JsonResource
 {
@@ -15,7 +13,6 @@ class AllProductResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-
     public function toArray(Request $request): array
     {
         $translations = $this->translations->mapWithKeys(function ($translation) {
@@ -25,11 +22,12 @@ class AllProductResource extends JsonResource
         });
         return [
             'productId' => $this->id,
-            'slugEn' => $translations['slugEn'] ?? "",
-            'slugAr' => $translations['slugAr'] ?? "",
             'name' => $this->name,
             'isActive' => $this->is_active,
+            'slugEn' => $translations['slugEn'] ?? "",
+            'slugAr' => $translations['slugAr'] ?? "",
             'image' => $this->images->first() != null? Storage::disk('public')->url($this->images->first()->path):"",
         ];
+
     }
 }

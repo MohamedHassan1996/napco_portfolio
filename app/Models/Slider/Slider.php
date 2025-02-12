@@ -18,7 +18,7 @@ class Slider extends Model
     ];
     public function sliderItems()
     {
-        return $this->hasMany(SliderItem::class);
+        return $this->hasMany(SliderItem::class,'slider_id');
     }
     public function frontPageSections()
     {
