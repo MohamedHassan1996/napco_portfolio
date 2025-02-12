@@ -110,7 +110,7 @@ class CertificationController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->certificationService->deleteCertification($request->certifcationId);
+            $this->certificationService->deleteCertification($request->certificationId);
             DB::commit();
             return response()->json([
                 'message' => __('messages.success.deleted')
