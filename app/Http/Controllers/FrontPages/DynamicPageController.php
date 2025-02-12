@@ -96,9 +96,9 @@ class DynamicPageController extends Controller
             ->where('front_pages.is_active', 1)
             ->where('front_page_translations.slug', $slug)
             ->first();
-        if(!$page){
-              return response()->json(["message"=>"slug notFound"],404);
-        }
+            if(!$page){
+                return response()->json(["message"=>"slug notFound"],404);
+            }
             if($page && $page->locale != $lang){
                 $page = DB::table('front_page_translations')
                 ->leftJoin('front_pages', 'front_page_translations.front_page_id', '=', 'front_pages.id')

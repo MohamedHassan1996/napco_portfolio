@@ -10,6 +10,7 @@ use App\Models\CompanyTeam\CompanyTeam;
 use function PHPUnit\Framework\isEmpty;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Blog\Website\AllBlogResource;
+use App\Http\Resources\Slider\Website\SliderResource;
 use App\Http\Resources\CompanyTeam\AllCompanyTeamResource;
 use App\Http\Resources\Product\Website\AllProductResource;
 
@@ -46,6 +47,7 @@ class FrontPageSectionResource extends JsonResource
             // Translated fields
             'contentEn' => $translations['contentEn'] ?? [],
             'contentAr' => $translations['contentAr'] ?? [],
+            'slide'=>$this->slide? new SliderResource($this->whenLoaded('slide')):"",
             'products' => $productsCheck? AllProductResource::collection($products):null,
             'news' => $blogsCheck? AllBlogResource::collection($blogs):null,
             'companyTeam' => $companyCheck? AllCompanyTeamResource::collection($company):null
