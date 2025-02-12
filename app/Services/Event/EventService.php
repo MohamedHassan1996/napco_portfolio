@@ -86,6 +86,7 @@ class EventService{
         if(isset($eventData['thumbnail']) && $eventData['thumbnail'] instanceof UploadedFile){
             $path =  $this->uploadService->uploadFile($eventData['thumbnail'], 'events');
         }
+
         if($event->thumbnail && $path){
             Storage::disk('public')->delete($event->thumbnail);
         }
@@ -99,9 +100,9 @@ class EventService{
         $event->time = $eventData['time'];
         $event->location = $eventData['location'];
 
-        // if($path){
-        //     $event->thumbnail = $path;
-        // }
+        if($path){
+            $event->thumbnail = $path;
+        }
 
         if (!empty($eventData['titleAr'])) {
             $event->translateOrNew('ar')->title = $eventData['titleAr'];
