@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Blog\BlogCategory;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Blog\Website\AllBlogResource;
 
 class AllBlogCategoryResource extends JsonResource
 {
@@ -19,7 +21,8 @@ class AllBlogCategoryResource extends JsonResource
             'blogCategoryId' => $this->id,
             'name' => $this->name,
             'isActive' => $this->is_active,
-            "blogCount"=>count($this->blogs)
+            "blogCount"=>count($this->blogs),
+            "blog"=> $this->blogs?AllBlogResource::collection($this->blogs):null
         ];
     }
 }

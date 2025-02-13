@@ -4,8 +4,9 @@ namespace App\Http\Resources\Blog;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Blog\BlogCategory\AllBlogCategoryResource;
 
 class AllBlogResource extends JsonResource
 {
@@ -32,6 +33,7 @@ class AllBlogResource extends JsonResource
             //'metaData' => $this->meta_data??[],
             'publishedAt' => $this->published_at ? Carbon::parse($this->published_at)->format('d/m/Y H:i:s') : "",
             'categoryName' => $this->blogCategory->translations->first()->name,
+            "blogCategory"=> $this->blogCategory ? new AllBlogCategoryResource($this->blogCategory):null,
             'isPublished' => $this->is_published
         ];
     }
