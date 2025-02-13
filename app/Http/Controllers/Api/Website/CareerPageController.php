@@ -36,7 +36,7 @@ class CareerPageController extends Controller
             }])
             ->first();
           $careerService= $this->careerService->allCareers();
-          $certifications = $this->certificationService->allCertifications();
+        //   $certifications = $this->certificationService->allCertifications();
 
         session(['active_navbar_link' => $slug??'']);
 
@@ -56,10 +56,11 @@ class CareerPageController extends Controller
 
          return response()->json([
              "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),
-             "page"=>[
-                 'AllCertification'=> new FrontPageWebsiteResource($homePage),
-                 'AllCareer'=>AllCareerResource::collection($careerService)
-                 ],
+             "page"=>new FrontPageWebsiteResource($homePage),
+            //    [
+            //      'AllCertification'=> new FrontPageWebsiteResource($homePage),
+            //      'AllCareer'=>AllCareerResource::collection($careerService)
+            //     ],
              "mainSetting"=>$mainSetting
          ]);
     }

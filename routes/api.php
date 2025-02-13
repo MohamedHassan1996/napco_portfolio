@@ -246,10 +246,8 @@ Route::prefix('v1/{lang}/admin/selects')->where(['lang' => 'en|ar'])->group(func
 Route::prefix('v1/{lang}/website')->where(['lang' => 'en|ar'])->group(function($slug=''){
         Route::get('', [DynamicPageController::class, 'index'])
         ->name('dynamic.page');
-
         Route::get('show', [DynamicPageController::class, 'show'])
         ->name('dynamic.page.show');
-
         Route::get('products',[ProductUnAuthController::class,'index']);
         Route::get('blogs',[BlogUnAuthController::class,'index']);
         // Route::get('{slug}/{single_slug}', [DynamicPageController::class, 'show'])
