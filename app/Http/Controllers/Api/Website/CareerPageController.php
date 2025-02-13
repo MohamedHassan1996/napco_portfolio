@@ -30,7 +30,7 @@ class CareerPageController extends Controller
     {
         $locale = app()->getLocale();
 
-        $homePage = FrontPage::where('controller_name', 'HomePageController')
+        $homePage = FrontPage::where('controller_name', 'CareerPageController')
             ->with(['sections.translations' => function ($query) use ($locale) {
                 $query->where('locale', $locale);
             }])
@@ -57,8 +57,8 @@ class CareerPageController extends Controller
          return response()->json([
              "navbarLinks"=>NavbarLinksSlugResource::collection($navbarLinks),
              "page"=>[
-                 'AllCareer'=>AllCareerResource::collection($careerService),
-                 'AllCertification'=> AllCertificationResource::collection($certifications)
+                 'AllCertification'=> new FrontPageWebsiteResource($homePage),
+                 'AllCareer'=>AllCareerResource::collection($careerService)
                  ],
              "mainSetting"=>$mainSetting
          ]);
