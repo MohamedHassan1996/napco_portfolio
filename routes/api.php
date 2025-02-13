@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Private\Select\SelectController;
 use App\Http\Controllers\Api\Private\Slider\SliderController;
 use App\Http\Controllers\Api\Private\Product\ProductController;
 use App\Http\Controllers\Api\Private\Career\CandidateController;
+use App\Http\Controllers\Api\Website\Blogs\BlogUnAuthController;
 use App\Http\Controllers\Api\Private\Blog\BlogCategoryController;
 use App\Http\Controllers\Api\Private\Customer\CustomerController;
 use App\Http\Controllers\Api\Private\ContactUs\ContactUsController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Api\Private\Product\ProductImageController;
 use App\Http\Controllers\Api\Private\FrontPage\PageSectionController;
 use App\Http\Controllers\Api\Private\Newsletter\NewsletterController;
 use App\Http\Controllers\Api\Private\Newsletter\SubscriberController;
+use App\Http\Controllers\Api\Website\Products\ProductUnAuthController;
 use App\Http\Controllers\Api\Private\CompanyTeam\CompanyTeamController;
 use App\Http\Controllers\Api\Private\MainSetting\MainSettingController;
 use App\Http\Controllers\Api\Private\Product\ProductCategoryController;
@@ -248,6 +250,8 @@ Route::prefix('v1/{lang}/website')->where(['lang' => 'en|ar'])->group(function($
         Route::get('show', [DynamicPageController::class, 'show'])
         ->name('dynamic.page.show');
 
+        Route::get('products',[ProductUnAuthController::class,'index']);
+        Route::get('blogs',[BlogUnAuthController::class,'index']);
         // Route::get('{slug}/{single_slug}', [DynamicPageController::class, 'show'])
         // ->where('slug', '^(?!ar|fr|es).*$') // Exclude 'ar', 'fr', 'es'
         // ->name('dynamic.page.show');
