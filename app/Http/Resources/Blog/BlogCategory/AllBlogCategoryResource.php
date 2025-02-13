@@ -19,6 +19,7 @@ class AllBlogCategoryResource extends JsonResource
             'blogCategoryId' => $this->id,
             'name' => $this->name,
             'isActive' => $this->is_active,
+            "blogCount"=>count($this->blogs)
         ];
     }
 }
