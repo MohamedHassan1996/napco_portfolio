@@ -29,4 +29,8 @@ class Product extends Model implements TranslatableContract
     {
         return $this->hasOne(ProductImage::class)->latest();
     }
+    public function productCategory()
+    {
+        return $this->belongsTo(productCategory::class,'product_category_id');
+    }
 }

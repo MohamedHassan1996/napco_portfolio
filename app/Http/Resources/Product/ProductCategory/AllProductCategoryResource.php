@@ -4,6 +4,7 @@ namespace App\Http\Resources\Product\ProductCategory;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Product\Website\AllProductResource;
 
 class AllProductCategoryResource extends JsonResource
 {
@@ -20,6 +21,7 @@ class AllProductCategoryResource extends JsonResource
             'productCategoryId' => $this->id,
             'name' => $this->name,
             'isActive' => $this->is_active,
+            'products'=> AllProductResource::collection($this->products),
         ];
     }
 }

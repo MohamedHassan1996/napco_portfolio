@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Http\Resources\Product\ProductCategory\AllProductCategoryResource;
 use App\Http\Resources\Product\ProductImage\ProductImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -44,7 +45,8 @@ class ProductResource extends JsonResource
             'metaDataEn' => $translations['metaDataEn']?? [] ,
             'metaDataAr' => $translations['metaDataAr']?? [],
             'images' => $this->images? ProductImageResource::collection($this->images): [],
-            'productCategoryId' => $this->product_category_id??""
+            'productCategoryId' => $this->productCategory? new AllProductCategoryResource($this->productCategory):null
+
         ];
     }
 
