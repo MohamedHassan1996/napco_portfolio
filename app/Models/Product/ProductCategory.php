@@ -20,5 +20,9 @@ class ProductCategory extends Model implements TranslatableContract
     protected $casts = [
         'is_active' => ProductCategoryStatus::class,
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class,'product_category_id');
+    }
 
 }
