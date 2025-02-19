@@ -112,8 +112,13 @@ class FrontPageService{
 
     public function mainSetting()
     {
-       $mainSetting=MainSetting::select(['content','logo','favicon'])->get();
-       return $mainSetting;
+       $mainSetting=MainSetting::select(['content','logo','favicon'])->first();
+       $mainSettingData = [
+        'content' => $mainSetting->content,
+        'logo' => $mainSetting->logo?Storage::disk('public')->url($mainSetting->logo):"",
+        'favicon' => $mainSetting->favicon?Storage::disk('public')->url($mainSetting->favicon):"",
+       ];
+       return $mainSettingData;
     }
 
 
