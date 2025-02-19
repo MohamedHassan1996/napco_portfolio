@@ -31,6 +31,6 @@ class Product extends Model implements TranslatableContract
     }
     public function productCategory()
     {
-        return $this->belongsTo(productCategory::class,'product_category_id');
+        return $this->belongsTo(ProductCategory::class,'product_category_id');
     }
 }
