@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\Product\AllProductCollection;
+use App\Http\Resources\Product\ProductDashboardResource;
 use App\Http\Resources\Product\ProductResource;
 use App\Services\Product\ProductImageService;
 use App\Utils\PaginateCollection;
@@ -95,7 +96,7 @@ class ProductController extends Controller
         $product  =  $this->productService->editProduct($request->productId);
 
         return response()->json(
-            new ProductResource($product)//new UserResource($user)
+            new ProductDashboardResource($product)//new UserResource($user)
         ,200);
 
     }
