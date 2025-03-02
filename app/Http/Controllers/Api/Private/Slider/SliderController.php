@@ -12,17 +12,10 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Services\Slider\slideService;
 use Illuminate\Validation\Rules\Enum;
-use Spatie\QueryBuilder\QueryBuilder;
 use App\Services\Upload\UploadService;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\Slider\SliderResource;
 use App\Http\Resources\Slider\AllSliderResource;
 use App\Http\Resources\Slider\AllSliderCollection;
-use App\Services\Certification\CertificationService;
-use App\Http\Resources\Certification\CertificationResource;
-use App\Http\Requests\Certification\CreateCertificationRequest;
-use App\Http\Requests\Certification\UpdateCertificationRequest;
-use App\Http\Resources\Certification\AllCertificationCollection;
 
 class SliderController extends Controller
 {
@@ -158,13 +151,7 @@ class SliderController extends Controller
            "data"=>"done"
        ],200);
     }
-    // public function changeStatus(Request $request)
-    // {
-    //     $this->certificationService->changeStatus($request->certificationId, $request->isPublished);
-    //     return response()->json([
-    //         'message' => __('messages.success.updated')
-    //     ], 200);
-    // }*/
+
 
 
 }

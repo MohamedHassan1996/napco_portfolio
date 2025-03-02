@@ -76,14 +76,23 @@ class slideService{
     {
            //selectId
            $slider=Slider::findOrFail($data['slideId']);
-           if($data['frontPageSectionId'])
-           {
-               foreach ($data['frontPageSectionId'] as $frontPageSectionId) {
-                   $frontPageSectionId= FrontPageSection::findOrFail($frontPageSectionId);
-                   $frontPageSectionId->slider_id=$slider->id;
-                   $frontPageSectionId->save();
-               }
-           }
+           if (!empty($data['frontPageSectionId'])) {
+            // Fetch existing IDs linked to this slider
+            $existingIds = FrontPageSection::where('slider_id', $slider->id)->pluck('id')->toArray();
+
+            // Find IDs that need to be removed (existing but not in the new array)
+            $idsToDelete = array_diff($existingIds, $data['frontPageSectionId']);
+
+            // Delete the removed IDs
+            FrontPageSection::whereIn('id', $idsToDelete)->delete();
+
+            // Update or attach new IDs
+            foreach ($data['frontPageSectionId'] as $frontPageSectionId) {
+                $frontPageSection = FrontPageSection::findOrFail($frontPageSectionId);
+                $frontPageSection->slider_id = $slider->id;
+                $frontPageSection->save();
+            }
+        }
             // $sliderItems =$slider->sliderItems;
             $slider->update([
                 'title' => $data['title']
