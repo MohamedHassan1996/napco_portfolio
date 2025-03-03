@@ -103,7 +103,7 @@ class slideService{
             SliderItem::whereNotIn('id', $slideItemIds)->where('slider_id', $slider->id)->delete();
 
             foreach ($data['data'] as $item) {
-                $sliderItem = SliderItem::find($item['slideItemId']);
+                $sliderItem = SliderItem::find($item['sliderItemId']);
 
                 if ($sliderItem == null) {
                     $sliderItem = new SliderItem();
