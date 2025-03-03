@@ -98,7 +98,7 @@ class slideService{
                 'title' => $data['title']
             ]);
 
-            $slideItemIds = array_map(fn($item) => $item['slideItemId'], $data['sliderItems']);
+            $slideItemIds = array_map(fn($item) => $item['sliderItemId'], $data['sliderItems']);
 
             SliderItem::whereNotIn('id', $slideItemIds)->where('slider_id', $slider->id)->delete();
 
