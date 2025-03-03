@@ -97,18 +97,39 @@ class slideService{
             $slider->update([
                 'title' => $data['title']
             ]);
-            foreach ($data['sliderItems'] as $item) {
-                $sliderItem = SliderItem::findOrFail($item['sliderItemId']);
-                    if (isset($item['media']) )
-                    {
-                        if($sliderItem->media)
-                        {
+
+            $slideItemIds = array_map(fn($item) => $item['slideItemId'], $data['sliderItems']);
+
+            SliderItem::whereNotIn('id', $slideItemIds)->where('slider_id', $slider->id)->delete();
+
+            foreach ($data['data'] as $item) {
+                $sliderItem = SliderItem::find($item['slideItemId']);
+
+                if ($sliderItem == null) {
+                    $sliderItem = new SliderItem();
+                    $mediaPath = $this->uploadService->uploadFile($item['media'], 'sliders');
+                    $sliderItem->media = $mediaPath;
+                    $sliderItem->is_active =SliderItemStatus::from($item['isActive'])->value ;
+                    $sliderItem->media_type =SliderItemMediaType::from($item['MediaType'])->value;
+                    if (!empty($item['contentAr'])) {
+                        $sliderItem->translateOrNew('ar')->content = $item['contentAr'];
+                    }
+
+                    if (!empty($item['contentEn'])) {
+                        $sliderItem->translateOrNew('en')->content = $item['contentEn'];
+                    }
+                    $sliderItem->slider_id = $slider->id;
+                    $sliderItem->save();
+                    continue;
+                 }
+                    if (isset($item['media']) ){
+                        if($sliderItem->media){
                             Storage::disk('public')->delete($sliderItem->media);
                         }
                         $mediaPath = $this->uploadService->uploadFile($item['media'], 'sliders');
                         $sliderItem->media = $mediaPath;
                     }
-                    //title, is_active(boolean), slider_id(sliders), media(string), media_type(string), content(json)
+
                     $sliderItem->is_active =SliderItemStatus::from($item['isActive'])->value ;
                     $sliderItem->media_type =SliderItemMediaType::from($item['MediaType'])->value;
                     if (!empty($item['contentAr'])) {
@@ -121,6 +142,7 @@ class slideService{
 
                    $sliderItem->slider_id = $slider->id;
                    $sliderItem->save();
+
                 }
             return "done";
 
