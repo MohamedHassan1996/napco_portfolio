@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\Private\ContactUs\ContactUsMessageController;
 use App\Http\Controllers\Api\Private\ContactUs\WebsiteContactUsController;
 use App\Http\Controllers\Api\Private\FrontPage\FrontPageSectionController;
 use App\Http\Controllers\Api\Private\Certification\CertificationController;
+use App\Http\Controllers\Api\Private\FrontPage\SectionImageController;
 use App\Http\Controllers\Api\Private\Newsletter\WebsiteSubscriberController;
 use App\Http\Controllers\Api\Website\SendCareerToAdmin\sendCareerToAdminController;
 use App\Http\Controllers\Api\Website\ContactUsSendAdmin\ContactUsSendAdminController;
@@ -230,6 +231,10 @@ Route::prefix('v1/{lang}/admin/sliders')->where(['lang' => 'en|ar'])->group(func
       Route::put('update', [SliderController::class, 'update']);
       Route::delete('delete', [SliderController::class, 'delete']);
       Route::post('updateSlideItem', [SliderController::class, 'updateSlideItem']);
+});
+
+Route::prefix('v1/{lang}/admin/section-images')->where(['lang' => 'en|ar'])->group(function(){
+    Route::delete('delete', [SectionImageController::class, 'delete']);
 });
 
 
