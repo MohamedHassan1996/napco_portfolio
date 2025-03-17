@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\FrontPage\FrontPageSection;
 
+use App\Enums\Blog\BlogStatus;
+use App\Enums\Product\ProductStatus;
 use App\Models\Blog\Blog;
 use Illuminate\Http\Request;
 use App\Models\Career\Career;
@@ -37,10 +39,10 @@ class FrontPageSectionResource extends JsonResource
         $companyCheck = $this->name == "company_team";
         $careerCheck = $this->name == "jobs";
         if($productsCheck ||$blogsCheck ||$companyCheck ||$careerCheck){
-          $products = Product::limit(10)->get();
-          $blogs = Blog::limit(10)->get();
-          $company = CompanyTeam::limit(10)->get();
-          $careers =Career::get();
+          $products = Product::where('is_active', ProductStatus::ACTIVE->value)->limit(10)->get();
+          $blogs = Blog::where('is_published', BlogStatus::PUBLISHED->value)->orderBy('id', 'desc')->limit(10)->get();
+          $company = CompanyTeam::where('is_active',1)->limit(10)->get();
+          $careers =Career::where('is_active',1)->get();
 
         }
         return [
