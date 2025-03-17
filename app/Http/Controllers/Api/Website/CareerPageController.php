@@ -35,7 +35,7 @@ class CareerPageController extends Controller
                 $query->where('locale', $locale);
             }])
             ->first();
-          $careerService= $this->careerService->allCareers();
+          $careerService= Career::where('is_active',1)->get();
         //   $certifications = $this->certificationService->allCertifications();
 
         session(['active_navbar_link' => $slug??'']);
