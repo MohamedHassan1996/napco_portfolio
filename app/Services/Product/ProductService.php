@@ -23,6 +23,7 @@ class ProductService{
             ->withTranslation() // Fetch translations if applicable
             ->allowedFilters([
                 AllowedFilter::custom('search', new ProductSearchTranslatableFilter()), // Add a custom search filter
+                AllowedFilter::exact('categoryId', 'product_category_id'), // Add a custom search filter
             ])
             ->with('images')
             ->get();
