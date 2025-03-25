@@ -22,7 +22,7 @@ class AllCareerResource extends JsonResource
         return [
             'careerId' => $this->id,
             'title' => $this->title,
-            'description' => isset($this->description) ? Str::limit($this->description, 100) : "",
+            'description' => isset($this->description) ? Str::limit($this->description, 30) : "",
             'isActive' => $this->is_active,
         ];
     }
