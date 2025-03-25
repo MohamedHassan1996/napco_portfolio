@@ -31,10 +31,15 @@ class CareerPageController extends Controller
         $locale = app()->getLocale();
 
         $homePage = FrontPage::where('controller_name', 'CareerPageController')
-            ->with(['sections.translations' => function ($query) use ($locale) {
-                $query->where('locale', $locale);
-            }])
-            ->first();
+    ->with([
+        'sections' => function ($query) {
+            $query->where('is_active', 1); // Adjust based on your column type (1 or true)
+        },
+        'sections.translations' => function ($query) use ($locale) {
+            $query->where('locale', $locale);
+        }
+    ])
+    ->first();
           $careerService= Career::where('is_active',1)->get();
         //   $certifications = $this->certificationService->allCertifications();
 
