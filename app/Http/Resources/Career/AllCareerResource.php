@@ -3,9 +3,10 @@
 namespace App\Http\Resources\Career;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AllCareerResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class AllCareerResource extends JsonResource
         return [
             'careerId' => $this->id,
             'title' => $this->title,
-            'description' => $this->description??"",
+            'description' => isset($this->description) ? Str::limit($this->description, 100) : "",
             'isActive' => $this->is_active,
         ];
     }
