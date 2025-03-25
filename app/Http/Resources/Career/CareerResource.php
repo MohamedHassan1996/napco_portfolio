@@ -3,9 +3,10 @@
 namespace App\Http\Resources\Career;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CareerResource extends JsonResource
 {
@@ -32,8 +33,8 @@ class CareerResource extends JsonResource
             'careerId' => $this->id,
             'titleAr' => $translations['titleAr'] ?? "",
             'titleEn' => $translations['titleEn'] ?? "",
-            'descriptionAr' => $translations['descriptionAr'] ?? "",
-            'descriptionEn' => $translations['descriptionEn'] ?? "",
+            'descriptionAr' => isset($translations['descriptionAr']) ? Str::limit($translations['descriptionAr'], 100) : "",
+            'descriptionEn' => isset($translations['descriptionEn']) ? Str::limit($translations['descriptionEn'], 100) : "",
             'contentAr' => $translations['contentAr'] ?? "",
             'contentEn' => $translations['contentEn'] ?? "",
             'metaDataAr' => $translations['metaDataAr'] ?? [],
